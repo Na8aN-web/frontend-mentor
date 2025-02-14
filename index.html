@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing page</title>
+    <link href="./style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -22,18 +23,40 @@
             <div>
                 <h1>All your files in one secure location, accessible anywhere</h1>
                 <p>Fylo stores your most important files in one secure location. Access them wherever you need, share
-                    and
-                    collaborate with friends, family and co-workers</p>
-                <div>
-                    <input type="email" />
-                    <button>Get Started</button>
-                </div>
+                    and collaborate with friends, family and co-workers</p>
+                <form id="email-form" onsubmit="return validateEmail(event)">
+                    <div class="input-group">
+                        <input type="email" id="email-input" placeholder="Enter your email..." required />
+                        <span class="error-message" id="error-msg"></span>
+                    </div>
+                    <button type="submit">Get Started</button>
+                </form>
             </div>
             <div>
                 <img src="./images/illustration-1.svg" alt="banner img" />
             </div>
         </section>
     </header>
+
+    <script>
+        function validateEmail(event) {
+            event.preventDefault();
+            const email = document.getElementById('email-input').value;
+            const errorMsg = document.getElementById('error-msg');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                errorMsg.textContent = 'Please enter a valid email address';
+                errorMsg.style.display = 'block';
+                return false;
+            }
+
+            errorMsg.style.display = 'none';
+            alert('Thank you for signing up!');
+            document.getElementById('email-form').reset();
+            return false;
+        }
+    </script>
 </body>
 
 </html>
