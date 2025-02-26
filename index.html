@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -16,6 +16,14 @@
                 <a href="#">Features</a>
                 <a href="#">Team</a>
                 <a href="#">Sign In</a>
+                <div class="theme-toggle">
+                    <span class="toggle-label">🌞</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label">🌙</span>
+                </div>
             </nav>
         </section>
 
@@ -23,7 +31,7 @@
             <div>
                 <h1>All your files in one secure location, accessible anywhere</h1>
                 <p>Fylo stores your most important files in one secure location. Access them wherever you need, share
-                    and collaborate with friends, family and co-workers</p>
+                    and collaborate with friends, family, and co-workers</p>
                 <form id="email-form" onsubmit="return validateEmail(event)">
                     <div class="input-group">
                         <input type="email" id="email-input" placeholder="Enter your email..." required />
@@ -56,6 +64,32 @@
             document.getElementById('email-form').reset();
             return false;
         }
+
+        // Dark mode toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeSwitch = document.getElementById('theme-switch');
+            
+            // Check for theme
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Set theme
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeSwitch.checked = true;
+            }
+            
+            // Theme switch
+            themeSwitch.addEventListener('change', function() {
+                if (this.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        });
     </script>
 </body>
 
